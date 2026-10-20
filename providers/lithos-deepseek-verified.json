@@ -1,0 +1,27 @@
+{
+  "provider": "LithosAI",
+  "base_url": "https://api.lithosai.cloud/v1",
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+  "model_status": "verified",
+  "api_style": "openai-compatible-chat-completions",
+  "prices_usd_per_million": {
+    "input": "0.15",
+    "cached_input": "0.003",
+    "output": "0.60"
+  },
+  "price_source": "https://lithosai.com/pricing",
+  "price_retrieved_at": null,
+  "api_key_env": "LITHOSAI_API_KEY",
+  "reasoning_cap_verified": true,
+  "observed_output_caps": [
+    32,
+    512
+  ],
+  "cap_evidence_scope": "Provider documentation states reasoning tokens and final answer share the output budget and max effort does not increase it. Mapped to the configured max_tokens/max_completion_tokens cap semantics as an explicit API/schema interpretation assumption; not validated by pilot (pilot reasoning_tokens=0 is not evidence).",
+  "cap_evidence_sources": [
+    "results/formal-v1/CAP-EVIDENCE.md",
+    "results/formal-v1/sources/agent-integrations.md",
+    "results/formal-v1/sources/openapi-capture.log"
+  ],
+  "model_identity_note": "Model list confirmed exact alias; pilot response snapshots still report the alias and do not establish immutable weights/version."
+}

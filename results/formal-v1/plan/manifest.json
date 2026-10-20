@@ -1,0 +1,46 @@
+{
+  "budget_usd": "15",
+  "bytes_per_token": 6.5,
+  "config_sha256": "2ad7af8807488ab4ab32ca48c36f38c99514955176e9622f57359af8798c53c8",
+  "estimate_note": "UTF-8 corpus targets use bytes_per_token as approximate generation sizing; reservation uses complete prompt UTF-8 byte count plus 4096 tokens under the stated byte-level tokenizer assumption. Pilot upper-bound violation stops. max_tokens includes reasoning only when config verification says so.",
+  "groups_per_size": 48,
+  "manifest_sha256": "504c62cf2296810dd676c0f2d662109ed997c82db4330f2590a7c310de254935",
+  "planned_upper_usd": "13.49742075",
+  "preregistered_revision": null,
+  "provider": {
+    "_source_path": "/home/nolotus/llm-api-bench/.worktrees/implementation/providers/lithos-deepseek-verified.json",
+    "_source_sha256": "2ad7af8807488ab4ab32ca48c36f38c99514955176e9622f57359af8798c53c8",
+    "api_key_env": "LITHOSAI_API_KEY",
+    "api_style": "openai-compatible-chat-completions",
+    "base_url": "https://api.lithosai.cloud/v1",
+    "cap_evidence_scope": "Provider documentation states reasoning tokens and final answer share the output budget and max effort does not increase it. Mapped to the configured max_tokens/max_completion_tokens cap semantics as an explicit API/schema interpretation assumption; not validated by pilot (pilot reasoning_tokens=0 is not evidence).",
+    "cap_evidence_sources": [
+      "results/formal-v1/CAP-EVIDENCE.md",
+      "results/formal-v1/sources/agent-integrations.md",
+      "results/formal-v1/sources/openapi-capture.log"
+    ],
+    "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "model_identity_note": "Model list confirmed exact alias; pilot response snapshots still report the alias and do not establish immutable weights/version.",
+    "model_status": "verified",
+    "observed_output_caps": [
+      32,
+      512
+    ],
+    "price_retrieved_at": null,
+    "price_source": "https://lithosai.com/pricing",
+    "prices_usd_per_million": {
+      "cached_input": "0.003",
+      "input": "0.15",
+      "output": "0.60"
+    },
+    "provider": "LithosAI",
+    "reasoning_cap_verified": true
+  },
+  "run_id": "lithos-formal-v1-20261020-a",
+  "schema": 2,
+  "seed": 20261020,
+  "task_count": 1200,
+  "tasks_file": "tasks.jsonl",
+  "tasks_sha256": "00d3bc5041d5a84c846ddd84e6123dda32de235c356d37ddc933b769109f4f2a",
+  "throughput_requests": 240
+}
