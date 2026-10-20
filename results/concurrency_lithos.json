@@ -1,0 +1,65 @@
+[
+  {
+    "concurrency": 1,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1079.4,
+    "error": null
+  },
+  {
+    "concurrency": 3,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1098.6,
+    "error": null
+  },
+  {
+    "concurrency": 3,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 2599.6,
+    "error": null
+  },
+  {
+    "concurrency": 3,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 2604.6,
+    "error": null
+  },
+  {
+    "concurrency": 5,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1186.8,
+    "error": null
+  },
+  {
+    "concurrency": 5,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1691.8,
+    "error": null
+  },
+  {
+    "concurrency": 5,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1886.8,
+    "error": null
+  },
+  {
+    "concurrency": 5,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 1892.7,
+    "error": null
+  },
+  {
+    "concurrency": 5,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 1197.4,
+    "error": null
+  }
+]
