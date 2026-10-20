@@ -1,0 +1,482 @@
+[
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1293.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1962.2,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1759.5,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 1460.2,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 1431.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 5,
+    "status": 200,
+    "latency_ms": 1032.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 6,
+    "status": 200,
+    "latency_ms": 2525.2,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 7,
+    "status": 200,
+    "latency_ms": 2497.2,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 8,
+    "status": 200,
+    "latency_ms": 1585.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 10,
+    "idx": 9,
+    "status": 200,
+    "latency_ms": 3827.1,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1161.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1396.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1467.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 1362.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 927.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 5,
+    "status": 200,
+    "latency_ms": 1287.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 6,
+    "status": 200,
+    "latency_ms": 1725.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 7,
+    "status": 200,
+    "latency_ms": 2519.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 8,
+    "status": 200,
+    "latency_ms": 1395.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 9,
+    "status": 200,
+    "latency_ms": 1467.0,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 10,
+    "status": 200,
+    "latency_ms": 1164.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 11,
+    "status": 200,
+    "latency_ms": 1293.1,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 12,
+    "status": 200,
+    "latency_ms": 1312.0,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 13,
+    "status": 200,
+    "latency_ms": 1446.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 14,
+    "status": 200,
+    "latency_ms": 1670.1,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 15,
+    "status": 200,
+    "latency_ms": 884.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 16,
+    "status": 200,
+    "latency_ms": 1105.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 17,
+    "status": 200,
+    "latency_ms": 1451.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 18,
+    "status": 200,
+    "latency_ms": 1345.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 20,
+    "idx": 19,
+    "status": 200,
+    "latency_ms": 1494.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1259.0,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1223.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1344.3,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 1140.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 1222.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 5,
+    "status": 200,
+    "latency_ms": 1441.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 6,
+    "status": 200,
+    "latency_ms": 1372.2,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 7,
+    "status": 200,
+    "latency_ms": 950.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 8,
+    "status": 200,
+    "latency_ms": 1356.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 9,
+    "status": 200,
+    "latency_ms": 2201.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 10,
+    "status": 200,
+    "latency_ms": 872.3,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 11,
+    "status": 200,
+    "latency_ms": 1163.5,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 12,
+    "status": 200,
+    "latency_ms": 2723.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 13,
+    "status": 200,
+    "latency_ms": 1217.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 14,
+    "status": 200,
+    "latency_ms": 1361.3,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 15,
+    "status": 200,
+    "latency_ms": 991.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 16,
+    "status": 200,
+    "latency_ms": 904.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 17,
+    "status": 200,
+    "latency_ms": 2868.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 18,
+    "status": 200,
+    "latency_ms": 2195.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 19,
+    "status": 200,
+    "latency_ms": 1288.3,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 20,
+    "status": 200,
+    "latency_ms": 1206.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 21,
+    "status": 200,
+    "latency_ms": 2305.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 22,
+    "status": 200,
+    "latency_ms": 1230.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 23,
+    "status": 200,
+    "latency_ms": 1001.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 24,
+    "status": 200,
+    "latency_ms": 1321.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 25,
+    "status": 200,
+    "latency_ms": 1265.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 26,
+    "status": 200,
+    "latency_ms": 1411.2,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 27,
+    "status": 200,
+    "latency_ms": 2449.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 28,
+    "status": 200,
+    "latency_ms": 2265.3,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 30,
+    "idx": 29,
+    "status": 200,
+    "latency_ms": 2440.7,
+    "error": null
+  }
+]
