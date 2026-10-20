@@ -110,6 +110,7 @@ def stream_chat(
     payload: dict,
     timeout_s: float = DEFAULT_TIMEOUT_S,
     on_event: Callable[[dict], Any] | None = None,
+    extra_headers: dict[str, str] | None = None,
 ) -> dict:
     """Stream chat completion using stdlib http.client.
 
@@ -185,6 +186,10 @@ def stream_chat(
             "Accept": "text/event-stream",
             "Connection": "close",
         }
+        if extra_headers:
+            for k, v in extra_headers.items():
+                if isinstance(k, str) and isinstance(v, str):
+                    req_headers[k] = v
         if api_key:
             req_headers["Authorization"] = f"Bearer {api_key}"
 

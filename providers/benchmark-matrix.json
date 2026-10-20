@@ -8,14 +8,24 @@
       "secret_name": "baseten_api_key",
       "env_name": "BASETEN_API_KEY",
       "budget_cap_usd": "2.00",
+      "evidence_status": "verified (standard prices via baseten.co/pricing) / unknown (fast tier)",
+      "evidence_note": "Standard prices verified on https://www.baseten.co/pricing ($0.30 in / $1.20 out / $0.007 cached); cached_input corrected from 0.03 to 0.007. Fast tier is not listed on that page, price remains unknown. Snapshot 1017 != fast tier.",
       "tiers": {
         "standard": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash",
-          "prices_usd_per_million": { "input": "0.30", "cached_input": "0.03", "output": "1.20" }
+          "prices_usd_per_million": {
+            "input": "0.30",
+            "cached_input": "0.007",
+            "output": "1.20"
+          }
         },
         "fast": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash-Fast",
-          "prices_usd_per_million": { "input": "0.45", "cached_input": "0.045", "output": "1.80" }
+          "prices_usd_per_million": {
+            "input": "0.45",
+            "cached_input": "0.045",
+            "output": "1.80"
+          }
         }
       }
     },
@@ -25,15 +35,27 @@
       "secret_name": "deepinfra_api_key",
       "env_name": "DEEPINFRA_API_KEY",
       "budget_cap_usd": "2.00",
+      "evidence_status": "unknown",
+      "evidence_note": "Standard/Priority prices match observed rates; 30% promo temporality and flex tier parameters unverified, retaining existing config",
       "tiers": {
         "standard": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash",
-          "prices_usd_per_million": { "input": "0.14", "cached_input": "0.004", "output": "0.42" }
+          "prices_usd_per_million": {
+            "input": "0.14",
+            "cached_input": "0.004",
+            "output": "0.42"
+          }
         },
         "priority": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash",
-          "extra_body": { "service_tier": "priority" },
-          "prices_usd_per_million": { "input": "0.21", "cached_input": "0.0063", "output": "0.63" }
+          "extra_body": {
+            "service_tier": "priority"
+          },
+          "prices_usd_per_million": {
+            "input": "0.21",
+            "cached_input": "0.0063",
+            "output": "0.63"
+          }
         }
       }
     },
@@ -43,10 +65,16 @@
       "secret_name": "fireworks_api_key",
       "env_name": "FIREWORKS_API_KEY",
       "budget_cap_usd": "2.00",
+      "evidence_status": "unknown",
+      "evidence_note": "Serverless prices retained; fast/priority route parameters unverified on model page, omitting extra_body",
       "tiers": {
         "standard": {
           "model": "accounts/fireworks/models/deepseek-v4p1-flash",
-          "prices_usd_per_million": { "input": "0.30", "cached_input": "0.006", "output": "1.20" }
+          "prices_usd_per_million": {
+            "input": "0.30",
+            "cached_input": "0.006",
+            "output": "1.20"
+          }
         }
       }
     },
@@ -56,10 +84,16 @@
       "secret_name": "deepseek_api_key",
       "env_name": "DEEPSEEK_API_KEY",
       "budget_cap_usd": "2.00",
+      "evidence_status": "unknown",
+      "evidence_note": "Official doc models are deepseek-chat/reasoner; deepseek-flash mapping unverified; off-peak window is 00:30-08:30 Beijing time (16:30-00:30 UTC); prices retained",
       "tiers": {
         "standard": {
           "model": "deepseek-flash",
-          "prices_usd_per_million": { "input": "0.14", "cached_input": "0.014", "output": "0.28" }
+          "prices_usd_per_million": {
+            "input": "0.14",
+            "cached_input": "0.014",
+            "output": "0.28"
+          }
         }
       }
     },
@@ -69,18 +103,32 @@
       "secret_name": "lithosai_api_key",
       "env_name": "LITHOSAI_API_KEY",
       "budget_cap_usd": "15.00",
+      "evidence_status": "verified (aliases/base prices) / unknown (early-bird discount)",
+      "evidence_note": "Model aliases verified via pilot model-discovery; Base/Fast/Ultra prices match local config; early-bird discount terms unverified",
       "tiers": {
         "base": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash",
-          "prices_usd_per_million": { "input": "0.15", "cached_input": "0.003", "output": "0.60" }
+          "prices_usd_per_million": {
+            "input": "0.15",
+            "cached_input": "0.003",
+            "output": "0.60"
+          }
         },
         "fast": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash-fast",
-          "prices_usd_per_million": { "input": "0.25", "cached_input": "0.005", "output": "1.00" }
+          "prices_usd_per_million": {
+            "input": "0.25",
+            "cached_input": "0.005",
+            "output": "1.00"
+          }
         },
         "ultra": {
           "model": "deepseek-ai/DeepSeek-V4.1-Flash-ultra",
-          "prices_usd_per_million": { "input": "0.35", "cached_input": "0.007", "output": "1.40" }
+          "prices_usd_per_million": {
+            "input": "0.35",
+            "cached_input": "0.007",
+            "output": "1.40"
+          }
         }
       }
     }
