@@ -1,0 +1,88 @@
+{
+  "matrix_version": 2,
+  "description": "Cross-provider DeepSeek V4.1 Flash multi-tier benchmark with technical and cost trade-off tracking",
+  "providers": {
+    "baseten": {
+      "name": "Baseten",
+      "base_url": "https://inference.baseten.co/v1",
+      "secret_name": "baseten_api_key",
+      "env_name": "BASETEN_API_KEY",
+      "budget_cap_usd": "2.00",
+      "tiers": {
+        "standard": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "prices_usd_per_million": { "input": "0.30", "cached_input": "0.03", "output": "1.20" }
+        },
+        "fast": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash-Fast",
+          "prices_usd_per_million": { "input": "0.45", "cached_input": "0.045", "output": "1.80" }
+        }
+      }
+    },
+    "deepinfra": {
+      "name": "DeepInfra",
+      "base_url": "https://api.deepinfra.com/v1/openai",
+      "secret_name": "deepinfra_api_key",
+      "env_name": "DEEPINFRA_API_KEY",
+      "budget_cap_usd": "2.00",
+      "tiers": {
+        "standard": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "prices_usd_per_million": { "input": "0.14", "cached_input": "0.004", "output": "0.42" }
+        },
+        "priority": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "extra_body": { "service_tier": "priority" },
+          "prices_usd_per_million": { "input": "0.21", "cached_input": "0.0063", "output": "0.63" }
+        }
+      }
+    },
+    "fireworks": {
+      "name": "Fireworks",
+      "base_url": "https://api.fireworks.ai/inference/v1",
+      "secret_name": "fireworks_api_key",
+      "env_name": "FIREWORKS_API_KEY",
+      "budget_cap_usd": "2.00",
+      "tiers": {
+        "standard": {
+          "model": "accounts/fireworks/models/deepseek-v4p1-flash",
+          "prices_usd_per_million": { "input": "0.30", "cached_input": "0.006", "output": "1.20" }
+        }
+      }
+    },
+    "deepseek_official": {
+      "name": "DeepSeek Official",
+      "base_url": "https://api.deepseek.com",
+      "secret_name": "deepseek_api_key",
+      "env_name": "DEEPSEEK_API_KEY",
+      "budget_cap_usd": "2.00",
+      "tiers": {
+        "standard": {
+          "model": "deepseek-flash",
+          "prices_usd_per_million": { "input": "0.14", "cached_input": "0.014", "output": "0.28" }
+        }
+      }
+    },
+    "lithos": {
+      "name": "LithosAI",
+      "base_url": "https://api.lithosai.cloud/v1",
+      "secret_name": "lithosai_api_key",
+      "env_name": "LITHOSAI_API_KEY",
+      "budget_cap_usd": "15.00",
+      "tiers": {
+        "base": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "prices_usd_per_million": { "input": "0.15", "cached_input": "0.003", "output": "0.60" }
+        },
+        "fast": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash-fast",
+          "prices_usd_per_million": { "input": "0.25", "cached_input": "0.005", "output": "1.00" }
+        },
+        "ultra": {
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash-ultra",
+          "prices_usd_per_million": { "input": "0.35", "cached_input": "0.007", "output": "1.40" }
+        }
+      }
+    }
+  }
+}
