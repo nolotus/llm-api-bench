@@ -40,29 +40,34 @@ def money(v):
 def token_price(c,key): return money(c['prices_usd_per_million'][key])
 def cost(prompt,output,c): return (Decimal(prompt)*token_price(c,'input')+Decimal(output)*token_price(c,'output'))/Decimal(1000000)
 def create_task(run_id,group_id,kind,target,cap,repeat,prefix):
-    text=prefix+'\n\nAnalyze this scenario and provide a structured evidence-based answer. State assumptions, alternatives, and limitations. '
+    suffix=f'\n\nTask variation {repeat}: compare a distinct consequence and state one additional limitation.'
+    text=prefix+suffix+'\n\nAnalyze this scenario and provide a structured evidence-based answer. State assumptions, alternatives, and limitations.'
     return {'request_id':f'{group_id}-{kind}-r{repeat:02d}','group_id':group_id,'kind':kind,'latency':None,'target_tokens':target,'repeat_index':repeat,'messages':[{'role':'user','content':text}],'max_tokens':cap,'payload':{'model':None,'messages':[{'role':'user','content':text}],'max_tokens':cap,'stream':True}}
 def plan(a):
     c=load_config(a.provider); budget=money(a.budget); bpt=a.bytes_per_token
-    if bpt<1 or a.groups<1 or a.throughput<1: raise BenchError('groups, throughput and bytes-per-token must be positive')
+    if not isinstance(bpt,(int,float)) or isinstance(bpt,bool) or not Decimal(str(bpt)).is_finite() or bpt<=0 or a.groups<1 or a.throughput<1: raise BenchError('groups, throughput and bytes-per-token must be positive')
+    bpt_decimal=Decimal(str(bpt))
     rng=random.Random(a.seed); wanted_groups=a.groups; wanted_short=a.throughput
     def materialize(g,t):
-        rows=[]
+        by_group={}
         for size in SIZES:
             for gi in range(g):
                 gid=f'{a.run_id}-{size}-g{gi:05d}'
-                prefix=sentences(rng,gid,size*bpt)
-                for rep in range(5): rows.append(create_task(a.run_id,gid,'long',size,min(32,size),rep,prefix))
+                target_bytes=int(Decimal(size)*bpt_decimal)
+                prefix=sentences(rng,gid,target_bytes)
+                by_group[gid]=[create_task(a.run_id,gid,'long',size,32,rep,prefix) for rep in range(5)]
         for i in range(t):
-            gid=f'{a.run_id}-throughput-{i:05d}'; prefix=sentences(rng,gid,1000*bpt)
-            rows.append(create_task(a.run_id,gid,'throughput',1000,512,0,prefix))
-        for row in rows: row['payload']['model']=c['model']
-        rng.shuffle(rows)
+            gid=f'{a.run_id}-throughput-{i:05d}'; prefix=sentences(rng,gid,int(Decimal(1000)*bpt_decimal))
+            by_group[gid]=[create_task(a.run_id,gid,'throughput',1000,512,0,prefix)]
+        for row in (r for group in by_group.values() for r in group): row['payload']['model']=c['model']
+        group_ids=list(by_group); rng.shuffle(group_ids)
+        rows=[]
+        for gid in group_ids: rows.extend(by_group[gid])
         return rows
     # Enumerate decreasing allocations using exact materialized payload byte lengths.
-    groups=wanted_groups; throughput=min(wanted_short,groups*20); rows=None
+    groups=wanted_groups; throughput=min(wanted_short,groups*5); rows=None
     while groups>=1:
-        throughput=min(wanted_short,groups*20)
+        throughput=min(wanted_short,groups*5)
         trial=materialize(groups,throughput)
         total=Decimal(0)
         for row in trial:
@@ -212,7 +217,7 @@ def run(a):
         time.sleep(2)
 def main(argv=None):
  p=argparse.ArgumentParser(); sub=p.add_subparsers(dest='cmd',required=True)
- q=sub.add_parser('plan'); q.add_argument('--provider',required=True); q.add_argument('--budget',default='15'); q.add_argument('--groups',type=int,default=200); q.add_argument('--throughput',type=int,default=1000); q.add_argument('--run-id',required=True); q.add_argument('--seed',type=int,required=True); q.add_argument('--output',required=True); q.add_argument('--bytes-per-token',type=int,default=4); q.add_argument('--preregistered-revision'); q.set_defaults(fn=plan)
+ q=sub.add_parser('plan'); q.add_argument('--provider',required=True); q.add_argument('--budget',default='15'); q.add_argument('--groups',type=int,default=200); q.add_argument('--throughput',type=int,default=1000); q.add_argument('--run-id',required=True); q.add_argument('--seed',type=int,required=True); q.add_argument('--output',required=True); q.add_argument('--bytes-per-token',type=float,default=4.0); q.add_argument('--preregistered-revision'); q.set_defaults(fn=plan)
  q=sub.add_parser('run'); q.add_argument('--plan',required=True); q.add_argument('--phase',choices=('pilot','formal'),required=True); q.add_argument('--ledger',required=True); q.add_argument('--budget',default='15'); q.add_argument('--max-requests',type=int,default=0); q.add_argument('--provider'); q.add_argument('--ack-unverified-pilot',action='store_true'); q.add_argument('--preregistered-revision'); q.set_defaults(fn=run)
  a=p.parse_args(argv)
  try: a.fn(a); return 0

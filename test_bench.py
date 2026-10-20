@@ -16,10 +16,25 @@ class BenchTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    _,rows=bench.verify_plan(self.make_plan(d)); long=[r for r in rows if r['kind']=='long']; self.assertEqual(len(long),20)
    for size in bench.SIZES:
-    rs=[r for r in long if r['target_tokens']==size]; self.assertEqual(len(rs),5); self.assertEqual({r['max_tokens'] for r in rs},{32}); self.assertEqual({r['repeat_index'] for r in rs},{0,1,2,3,4}); self.assertEqual(len({r['group_id'] for r in rs}),1)
-   self.assertEqual(len({r['messages'][0]['content'] for r in long}),4)
-   lens=[len(next(r for r in long if r['target_tokens']==s)['messages'][0]['content'].encode()) for s in bench.SIZES]; self.assertEqual(lens,sorted(lens))
+    rs=[r for r in rows if r['kind']=='long' and r['target_tokens']==size]; self.assertEqual(len(rs),5); self.assertEqual([r['repeat_index'] for r in rs],[0,1,2,3,4]); self.assertEqual({r['max_tokens'] for r in rs},{32}); self.assertEqual(len({r['group_id'] for r in rs}),1)
+   prefixes=[]
+   for size in bench.SIZES:
+    rs=[r for r in rows if r['kind']=='long' and r['target_tokens']==size]
+    contents=[r['messages'][0]['content'] for r in rs]
+    common=contents[0].split('\n\nTask variation ')[0]
+    self.assertTrue(all(x.startswith(common) for x in contents)); self.assertEqual(len({x.split('\n\nTask variation ')[1].split(':')[0] for x in contents}),5)
+    prefixes.append((size,common))
+   self.assertEqual(len({p for _,p in prefixes}),4)
+   lens=[len(next(r for r in long if r['target_tokens']==s)['messages'][0]['content'].encode()) for s in bench.SIZES]; self.assertEqual(lens,sorted(lens)); self.assertTrue(all(lens[i]<lens[i+1] for i in range(3)))
    short=[r for r in rows if r['kind']=='throughput']; self.assertEqual(len(short),2); self.assertTrue(all(r['max_tokens']==512 for r in short)); self.assertEqual(len({r['group_id'] for r in short}),2)
+ def test_multiple_seeds_keep_each_group_repetition_order(self):
+  for seed in (3,19,41):
+   with self.subTest(seed=seed),tempfile.TemporaryDirectory() as d:
+    p=Path(d)/'plan'; bench.main(['plan','--provider',CONFIG,'--budget','15','--groups','2','--throughput','10','--run-id','ordered','--seed',str(seed),'--bytes-per-token','6.5','--output',str(p)])
+    _,rows=bench.verify_plan(p)
+    for gid in dict.fromkeys(r['group_id'] for r in rows if r['kind']=='long'):
+     self.assertEqual([r['repeat_index'] for r in rows if r['group_id']==gid],[0,1,2,3,4])
+    self.assertEqual(sum(r['kind']=='throughput' for r in rows),10)
  def test_manifest_integrity_and_budget_extension(self):
   with tempfile.TemporaryDirectory() as d:
    out=self.make_plan(d); p=out/'manifest.json'; m=json.loads(p.read_text()); m['budget_usd']='999'; p.write_text(json.dumps(m))
