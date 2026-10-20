@@ -1,0 +1,7 @@
+.worktrees/
+__pycache__/
+.env*
+*.key
+*.pem
+credentials/
+secrets/

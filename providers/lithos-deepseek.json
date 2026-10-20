@@ -1,0 +1,15 @@
+{
+  "provider": "LithosAI",
+  "base_url": "https://api.lithosai.cloud/v1",
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+  "model_status": "candidate_unverified_confirm_exact_id_when_models_frozen",
+  "api_style": "openai-compatible-chat-completions",
+  "prices_usd_per_million": {
+    "input": "0.15",
+    "cached_input": "0.003",
+    "output": "0.60"
+  },
+  "price_source": "https://lithosai.com/pricing",
+  "price_retrieved_at": null,
+  "api_key_env": "LITHOSAI_API_KEY"
+}
