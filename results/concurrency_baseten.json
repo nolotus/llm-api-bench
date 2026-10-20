@@ -1,0 +1,74 @@
+[
+  {
+    "provider": "baseten",
+    "concurrency": 1,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 702.1,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 3,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 678.0,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 3,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 737.1,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 3,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 741.4,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 5,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 634.1,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 5,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 640.1,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 5,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 629.2,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 5,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 665.2,
+    "error": null
+  },
+  {
+    "provider": "baseten",
+    "concurrency": 5,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 767.1,
+    "error": null
+  }
+]

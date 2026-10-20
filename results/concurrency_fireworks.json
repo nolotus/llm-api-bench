@@ -1,0 +1,74 @@
+[
+  {
+    "provider": "fireworks",
+    "concurrency": 1,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 998.9,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 3,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 943.9,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 3,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1090.0,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 3,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1190.2,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 5,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 890.4,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 5,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1485.8,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 5,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1436.1,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 5,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 1524.9,
+    "error": null
+  },
+  {
+    "provider": "fireworks",
+    "concurrency": 5,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 1546.8,
+    "error": null
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "provider": "deepseek_official",
+    "concurrency": 1,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 863.7,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 3,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 863.2,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 3,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 712.7,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 3,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 770.2,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 5,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 766.4,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 5,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 740.5,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 5,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 733.3,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 5,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 765.2,
+    "error": null
+  },
+  {
+    "provider": "deepseek_official",
+    "concurrency": 5,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 1129.6,
+    "error": null
+  }
+]

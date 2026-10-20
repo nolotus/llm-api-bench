@@ -1,0 +1,74 @@
+[
+  {
+    "provider": "deepinfra",
+    "concurrency": 1,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 1411.7,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 3,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 751.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 3,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1141.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 3,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 3008.8,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 5,
+    "idx": 0,
+    "status": 200,
+    "latency_ms": 966.4,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 5,
+    "idx": 1,
+    "status": 200,
+    "latency_ms": 1495.6,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 5,
+    "idx": 2,
+    "status": 200,
+    "latency_ms": 1534.9,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 5,
+    "idx": 3,
+    "status": 200,
+    "latency_ms": 946.0,
+    "error": null
+  },
+  {
+    "provider": "deepinfra",
+    "concurrency": 5,
+    "idx": 4,
+    "status": 200,
+    "latency_ms": 964.4,
+    "error": null
+  }
+]
