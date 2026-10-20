@@ -35,6 +35,20 @@ class BenchTests(unittest.TestCase):
     for gid in dict.fromkeys(r['group_id'] for r in rows if r['kind']=='long'):
      self.assertEqual([r['repeat_index'] for r in rows if r['group_id']==gid],[0,1,2,3,4])
     self.assertEqual(sum(r['kind']=='throughput' for r in rows),10)
+ def test_synthesis_calls_linear_under_budget_shrink_and_reproducible(self):
+  import time
+  with tempfile.TemporaryDirectory() as d:
+   calls=[]; original=bench.sentences
+   def counted(*args,**kwargs): calls.append(args[1]); return original(*args,**kwargs)
+   a=SimpleNamespace(provider=CONFIG,budget='0.5',groups=30,throughput=1000,run_id='perf',seed=11,bytes_per_token=6.5,preregistered_revision=None,output=str(Path(d)/'a'))
+   start=time.monotonic()
+   with patch('bench.sentences',counted): bench.plan(a)
+   elapsed=time.monotonic()-start; count=len(calls); manifest,rows=bench.verify_plan(a.output)
+   self.assertLessEqual(count,4*(30+1000)); self.assertLess(manifest['groups_per_size'],30)
+   self.assertEqual(manifest['planned_upper_usd'],str(sum((bench.cost(r['input_upper_tokens'],r['max_tokens'],manifest['provider']) for r in rows),__import__('decimal').Decimal(0))))
+   b=SimpleNamespace(**{**a.__dict__,'output':str(Path(d)/'b')}); bench.plan(b)
+   self.assertEqual((Path(a.output)/'tasks.jsonl').read_bytes(),(Path(b.output)/'tasks.jsonl').read_bytes())
+   self.assertGreater(elapsed,0)
  def test_manifest_integrity_and_budget_extension(self):
   with tempfile.TemporaryDirectory() as d:
    out=self.make_plan(d); p=out/'manifest.json'; m=json.loads(p.read_text()); m['budget_usd']='999'; p.write_text(json.dumps(m))

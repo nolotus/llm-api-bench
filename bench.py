@@ -14,17 +14,17 @@ def fsappend(path, obj):
     with open(path,'a',encoding='utf-8') as f: f.write(json.dumps(obj,ensure_ascii=False,sort_keys=True)+'\n'); f.flush(); os.fsync(f.fileno())
 def sentences(rng, nonce, target_bytes):
     words=['careful observation','small green valley','distant morning light','quiet river crossing','patient craft worker','unexpected weather change','bright wooden window','old market square','gentle mechanical rhythm','useful shared discovery']
-    chunks=[f'Run nonce {nonce}. ']
-    while len(''.join(chunks).encode())<target_bytes:
-        chunks.append(f'{rng.choice(words)} {rng.choice(("continues","appears","moves","changes","matters"))} near {rng.choice(words)}; ')
-    text=''.join(chunks)
-    # Natural sentence boundary truncation; leave intact final sentence.
-    sentences=text.split('; '); out=''
-    for sentence in sentences:
-        candidate=out+sentence+('; ' if sentence else '')
-        if len(candidate.encode())>target_bytes and out: break
-        out=candidate
-    return out.rstrip()
+    chunks=[f'Run nonce {nonce}. ']; total_bytes=len(chunks[0].encode('utf-8'))
+    while total_bytes<target_bytes:
+        sentence=f'{rng.choice(words)} {rng.choice(("continues","appears","moves","changes","matters"))} near {rng.choice(words)}; '
+        chunks.append(sentence); total_bytes+=len(sentence.encode('utf-8'))
+    # Cut only at complete sentence boundaries, without repeatedly joining/recounting the corpus.
+    out=[]; used=0
+    for chunk in chunks:
+        size=len(chunk.encode('utf-8'))
+        if used+size>target_bytes and out: break
+        out.append(chunk); used+=size
+    return ''.join(out).rstrip()
 def load_config(p):
     c=json.loads(Path(p).read_text(encoding='utf-8'))
     for k in ('provider','base_url','model','model_status','prices_usd_per_million','api_key_env'):
@@ -48,34 +48,57 @@ def plan(a):
     if not isinstance(bpt,(int,float)) or isinstance(bpt,bool) or not Decimal(str(bpt)).is_finite() or bpt<=0 or a.groups<1 or a.throughput<1: raise BenchError('groups, throughput and bytes-per-token must be positive')
     bpt_decimal=Decimal(str(bpt))
     rng=random.Random(a.seed); wanted_groups=a.groups; wanted_short=a.throughput
-    def materialize(g,t):
-        by_group={}
+    group_specs=[]; group_costs=[]
+    def row_cost(prefix,gid,kind,target,cap,rep):
+        suffix=f'\n\nTask variation {rep}: compare a distinct consequence and state one additional limitation.'
+        body='\n\nAnalyze this scenario and provide a structured evidence-based answer. State assumptions, alternatives, and limitations.'
+        prompt=len((prefix+suffix+body).encode('utf-8'))+4096
+        return cost(prompt,cap,c)
+    # Synthesize each candidate long group once; retain its one shared prefix for final materialization.
+    for gi in range(wanted_groups):
+        specs=[]; charge=Decimal(0)
         for size in SIZES:
-            for gi in range(g):
-                gid=f'{a.run_id}-{size}-g{gi:05d}'
-                target_bytes=int(Decimal(size)*bpt_decimal)
-                prefix=sentences(rng,gid,target_bytes)
-                by_group[gid]=[create_task(a.run_id,gid,'long',size,32,rep,prefix) for rep in range(5)]
-        for i in range(t):
-            gid=f'{a.run_id}-throughput-{i:05d}'; prefix=sentences(rng,gid,int(Decimal(1000)*bpt_decimal))
-            by_group[gid]=[create_task(a.run_id,gid,'throughput',1000,512,0,prefix)]
-        for row in (r for group in by_group.values() for r in group): row['payload']['model']=c['model']
-        group_ids=list(by_group); rng.shuffle(group_ids)
-        rows=[]
-        for gid in group_ids: rows.extend(by_group[gid])
-        return rows
-    # Enumerate decreasing allocations using exact materialized payload byte lengths.
-    groups=wanted_groups; throughput=min(wanted_short,groups*5); rows=None
-    while groups>=1:
-        throughput=min(wanted_short,groups*5)
-        trial=materialize(groups,throughput)
-        total=Decimal(0)
-        for row in trial:
-            prompt=sum(len(m['content'].encode('utf-8')) for m in row['messages'])+4096
-            total+=cost(prompt,row['max_tokens'],c)
-        if total<=budget*Decimal('0.90'): rows=trial; break
-        groups-=1
-    if rows is None: raise BenchError('budget cannot fund minimum plan with 10% reserve')
+            gid=f'{a.run_id}-{size}-g{gi:05d}'
+            local_seed=int.from_bytes(hashlib.sha256(f'{a.seed}:{gid}'.encode()).digest()[:8],'big')
+            prefix=sentences(random.Random(local_seed),gid,int(Decimal(size)*bpt_decimal))
+            specs.append((size,gid,prefix))
+            charge+=sum((row_cost(prefix,gid,'long',size,32,rep) for rep in range(5)),Decimal(0))
+        group_specs.append(specs); group_costs.append(charge)
+    # Throughput units are independent groups; precompute exact per-item conservative cost once.
+    throughput_specs=[]; throughput_costs=[]
+    for i in range(wanted_short):
+        gid=f'{a.run_id}-throughput-{i:05d}'
+        prefix=sentences(random.Random(int.from_bytes(hashlib.sha256(f'{a.seed}:{gid}'.encode()).digest()[:8],'big')),
+                         gid,int(Decimal(1000)*bpt_decimal))
+        throughput_specs.append((gid,prefix)); throughput_costs.append(row_cost(prefix,gid,'throughput',1000,512,0))
+    throughput_cumulative=[Decimal(0)]
+    for item_cost in throughput_costs: throughput_cumulative.append(throughput_cumulative[-1]+item_cost)
+    chosen_groups=0; total=Decimal(0); throughput=0
+    long_cumulative=Decimal(0)
+    for candidate in range(1,wanted_groups+1):
+        long_cumulative+=group_costs[candidate-1]
+        candidate_t=min(wanted_short,candidate*5)
+        candidate_total=long_cumulative+throughput_cumulative[candidate_t]
+        if candidate_total<=budget*Decimal('0.90'):
+            chosen_groups=candidate; throughput=candidate_t; total=candidate_total
+    if chosen_groups==0: raise BenchError('budget cannot fund minimum plan with 10% reserve')
+    by_group={}
+    for specs in group_specs[:chosen_groups]:
+        for size,gid,prefix in specs:
+            by_group[gid]=[create_task(a.run_id,gid,'long',size,32,rep,prefix) for rep in range(5)]
+    for gid,prefix in throughput_specs[:throughput]:
+        by_group[gid]=[create_task(a.run_id,gid,'throughput',1000,512,0,prefix)]
+    for group in by_group.values():
+        for row in group: row['payload']['model']=c['model']
+    group_ids=list(by_group); rng.shuffle(group_ids)
+    rows=[]
+    for gid in group_ids: rows.extend(by_group[gid])
+    groups=chosen_groups
+    # Verify exact materialized payload charges agree with cached candidate estimate.
+    actual_total=sum((cost(sum(len(m['content'].encode('utf-8')) for m in row['messages'])+4096,row['max_tokens'],c) for row in rows),Decimal(0))
+    if actual_total!=total: raise BenchError('internal planning cost mismatch')
+    total=actual_total
+
     # Per request reservation input is raw UTF-8 bytes + fixed 4096 token envelope.
     for row in rows:
         row['input_upper_tokens']=sum(len(m['content'].encode('utf-8')) for m in row['messages'])+4096
