@@ -645,7 +645,10 @@ def run(
                         raise AuditWriteFailed("Failed to persist streaming event")
 
                 sent += 1
-                resp = transport_fn(p_cfg["base_url"], key, task["payload"], on_event=on_event_cb)
+                payload = dict(task["payload"])
+                if provider_key == "baseten":
+                    payload["stream_options"] = {"include_usage": True}
+                resp = transport_fn(p_cfg["base_url"], key, payload, on_event=on_event_cb)
                 tr = resp
                 code = resp.get("status")
                 is_done = bool(resp.get("done"))
@@ -665,7 +668,10 @@ def run(
                         status = "invalid_usage"
                     elif pt > task["input_upper_tokens"] or ct > task["output_cap_tokens"]:
                         status = "usage_bound_violation"
-                    elif resp.get("response_model") != task["payload"]["model"]:
+                    elif resp.get("response_model") != task["payload"]["model"] and not (
+                        provider_key == "baseten"
+                        and resp.get("response_model") in ("deepseek-v4.1-flash", "deepseek-ai/DeepSeek-V4.1-Flash")
+                    ):
                         status = "model_mismatch"
                     else:
                         actual = str(calculate_cost(provider_key, task["tier"], pt, ch, ct, matrix_cfg))
